@@ -1,5 +1,5 @@
 CC = gcc
-PARAMS = -Wall -g
+PARAMS = -Wall -g -lm
 
 all: clean run remove_o
 
@@ -12,8 +12,11 @@ file_loader:
 structures:
 	${CC} ${PARAMS} -c src/structures.c src/structures.h src/constants.h
 
-run: structures file_loader
-	${CC} ${PARAMS} -o freq src/main.c structures.o file_loader.o 
+functions:
+	${CC} ${PARAMS} -c src/functions.c src/functions.h
+
+run: structures file_loader functions
+	${CC} ${PARAMS} -o freq src/main.c structures.o file_loader.o  functions.o
 
 remove_o:
 	rm *.o
