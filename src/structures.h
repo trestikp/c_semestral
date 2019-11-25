@@ -4,16 +4,16 @@
 typedef struct the_frequency {
 	int id;
 	int value;
+	int used;
 	struct the_frequency *next;
 } frequency;
 
 struct the_stack_node;
 
 typedef struct the_transmitter {
-	int id;
+	int id, frequency;
 	float x, y;
 	struct the_stack_node *neighbor_top;
-	int neighbor_count;
 	struct the_transmitter *next;
 } transmitter;
 
@@ -32,6 +32,7 @@ frequency *add_frequency(frequency *last, int id, int value);
 transmitter *add_transmitter(transmitter *last, int id, float x, float y);
 void push_neighbor(transmitter *main, transmitter *neighbor);
 transmitter *pop_neighbor(transmitter **main);
+void exclude_frequency(frequency *head, int value);
 
 void print_freq(frequency *head);
 void print_tran(transmitter *head);

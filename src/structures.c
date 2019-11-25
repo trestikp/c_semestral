@@ -14,6 +14,7 @@ frequency *add_frequency(frequency *last, int id, int value) {
 
 	temp->id = id;
 	temp->value = value;
+	temp->used = 0;
 	
 	if(!last) {
 		return temp;
@@ -34,8 +35,7 @@ transmitter *add_transmitter(transmitter *last, int id, float x, float y) {
 	temp->id = id;
 	temp->x = x;
 	temp->y = y;
-	/* ADD NEIGHBORS! */
-	temp->neighbor_count = 0;
+	temp->frequency = -1;
 
 	if(!last) {
 		return temp;
@@ -89,6 +89,6 @@ void print_neighbors(transmitter *trans) {
 	transmitter *popped = NULL;
 	while(trans->neighbor_top) {
 		popped = pop_neighbor(&trans);
-		printf("Popped neighbor: %d of %d\n", popped->id, trans->id);
+		printf("Popped neighbor: %d of %d - %d\n", popped->id, trans->id, trans->frequency);
 	}
 }

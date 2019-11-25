@@ -20,20 +20,30 @@ int main(int argc, char *argv[]) {
 
 	file *strucs = load_file(argv[1]);
 
+	/*
 	print_freq(strucs->frequency_head);
 	print_tran(strucs->transmitter_head);
 	printf("Radius: %d\n", strucs->radius);
 	printf("Starting finding neihgbors.\n");
 	find_neighbors(strucs->transmitter_head, strucs->radius);
 	printf("Finished finding neighbors.\n");
+	*/
 
+	find_neighbors(strucs->transmitter_head, strucs->radius);
+	assign_frequencies(strucs->transmitter_head, strucs->frequency_head);
+	print_result(strucs->transmitter_head);
+
+	/*
 	popper = strucs->transmitter_head;
 	while(popper) {
 		print_neighbors(popper);
 		popper = popper->next;
 	}
+	*/
 
+	/*
 	print_tran(strucs->transmitter_head);
+	*/
 
 	return 0;
 }

@@ -16,8 +16,8 @@ file *load_file(char *file_name) {
 	/* possibly double needed */
 	float x, y;
 	FILE* f;
-	frequency *head = NULL, *last = NULL;
-	transmitter *hlava = NULL , *posledni = NULL;
+	frequency /**head = NULL, */*last = NULL;
+	transmitter /**hlava = NULL, */*posledni = NULL;
 	file *out = (file*) malloc(sizeof(file));
 
 	if (!(f = fopen(file_name, "r"))) {
@@ -37,8 +37,8 @@ file *load_file(char *file_name) {
 		if (!strncmp(FREQUENCY_STRING, line, sizeof(FREQUENCY_STRING) - 1)) {
 			while (fgets(line, MAX_LINE_LENGTH, f)) {
 				if (sscanf(line, "%d %d", &id, &freq) == 2) {
-					if(!head) {
-						head = last;
+					if(!out->frequency_head) {
+						out->frequency_head = last;
 					}
 					last = add_frequency(last, id, freq);
 					/*
@@ -68,8 +68,8 @@ file *load_file(char *file_name) {
 		if (!strncmp(TRANSMITTER_STRING, line, sizeof(TRANSMITTER_STRING) - 1)) {
 			while (fgets(line, MAX_LINE_LENGTH, f)) {
 				if (sscanf(line, "%d %f %f", &id, &x, &y) == 3) {
-					if(!hlava) {
-						hlava = posledni;
+					if(!out->transmitter_head) {
+						out->transmitter_head = posledni;
 					}
 					posledni = add_transmitter(posledni, id, x, y);
 					/*
@@ -84,11 +84,9 @@ file *load_file(char *file_name) {
 	}
 
 	/*
-	print_freq(head);
-	print_tran(hlava);
-	*/
 	out->frequency_head = head;
 	out->transmitter_head = hlava;
+	*/
 
 	return out;
 }
