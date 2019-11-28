@@ -45,30 +45,19 @@ transmitter *add_transmitter(transmitter *last, int id, float x, float y) {
 	return last->next;
 }
 
-void push_neighbor(transmitter *main, transmitter *neighbor) {	
+int add_neighbor(transmitter *trans, transmitter *neighbor) {
 	stack_node *temp = (stack_node*) malloc(sizeof(stack_node));
 
 	if(!temp) {
 		printf(ERROR_2);
-		return;
+		return 0;
 	}
 
 	temp->data = neighbor;
-	temp->next = main->neighbor_top;
-	main->neighbor_top = temp;
-}
+	temp->next = trans->neighbor_head;
+	trans->neighbor_head = temp;
 
-transmitter *pop_neighbor(transmitter **main) {
-	if(!(*main)->neighbor_top) {
-		return (transmitter*) NULL;
-	}
-
-	stack_node *temp = (*main)->neighbor_top;
-	(*main)->neighbor_top = (*main)->neighbor_top->next;
-	transmitter *popped = temp->data;
-	free(temp);
-
-	return popped;
+	return 1;
 }
 
 void print_freq(frequency *head) {
@@ -86,9 +75,9 @@ void print_tran(transmitter *head) {
 }
 
 void print_neighbors(transmitter *trans) {
-	transmitter *popped = NULL;
-	while(trans->neighbor_top) {
-		popped = pop_neighbor(&trans);
-		printf("Popped neighbor: %d of %d - %d\n", popped->id, trans->id, trans->frequency);
+	stack_node *hopper = trans->neighbor_head;
+	while(hopper) {
+		printf("Popped neighbor: %d of %d - %d\n", hopper->data->id, trans->id, hopper->data->frequency);
+		hopper = hopper->next;
 	}
 }

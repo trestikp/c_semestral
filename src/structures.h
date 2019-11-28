@@ -13,7 +13,7 @@ struct the_stack_node;
 typedef struct the_transmitter {
 	int id, frequency;
 	float x, y;
-	struct the_stack_node *neighbor_top;
+	struct the_stack_node *neighbor_head;
 	struct the_transmitter *next;
 } transmitter;
 
@@ -30,9 +30,7 @@ typedef struct the_file {
 
 frequency *add_frequency(frequency *last, int id, int value);
 transmitter *add_transmitter(transmitter *last, int id, float x, float y);
-void push_neighbor(transmitter *main, transmitter *neighbor);
-transmitter *pop_neighbor(transmitter **main);
-void exclude_frequency(frequency *head, int value);
+int add_neighbor(transmitter *trans, transmitter *neighbor);
 
 void print_freq(frequency *head);
 void print_tran(transmitter *head);

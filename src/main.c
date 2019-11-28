@@ -30,16 +30,14 @@ int main(int argc, char *argv[]) {
 	*/
 
 	find_neighbors(strucs->transmitter_head, strucs->radius);
-	assign_frequencies(strucs->transmitter_head, strucs->frequency_head);
+	//assign_frequencies(strucs->transmitter_head, strucs->frequency_head);
 	print_result(strucs->transmitter_head);
 
-	/*
 	popper = strucs->transmitter_head;
 	while(popper) {
 		print_neighbors(popper);
 		popper = popper->next;
 	}
-	*/
 
 	/*
 	print_tran(strucs->transmitter_head);

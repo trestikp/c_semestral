@@ -6,40 +6,30 @@
 
 
 int find_neighbors(transmitter *head, int radius) {
-	transmitter *primary = head, *secondary = head;
-	/*
-	int count = 0;
-	*/
+	transmitter *primary = head, *secondary = primary->next;
 	double distance = 0;
 
-	while(primary) {
-		while(1) {
-			if(!secondary) {
-				secondary = head;
-				break;
-			}
-
+	/* 
+	 * While primary has next count distances from the next transmitter after primary 
+	 * (secondary) and ends before last transmitter, which is unneccessary to compare
+	 * because of distance 0. Secondary begins on the next transmitter so there is no
+	 * need to compare the same transmitters.
+	 */
+	while(primary->next) {
+		while(secondary) {	
 			distance = sqrt((primary->x - secondary->x) * (primary->x - secondary->x) +
 					(primary->y - secondary->y) * (primary->y - secondary->y));
 			if(distance < (2 * radius)) {
-				if(distance == 0) {
-					secondary = secondary->next;
-					continue;
-				}
-				/*
-				printf("%d to %d: %lf\n", primary->id, secondary->id, distance);
-				count++;
-				*/
-				push_neighbor(primary, secondary);
+				add_neighbor(primary, secondary);
+				add_neighbor(secondary, primary);
 			}
 
 			secondary = secondary->next;
 
 		}	
+		
 		primary = primary->next;
-		/*
-		printf("------\n");
-		*/
+		secondary = primary->next;
 	}
 
 	return 1;
@@ -55,12 +45,12 @@ void reset_used_freq(frequency *freq_head) {
 int find_available_frequency(transmitter *trans, frequency *freq_head) {
 	/*stack_node  *neigh_hopper = trans->neighbor_top;
 	 */
-	transmitter *neihbor;
+	stack_node *neighbor = trans->neighbor_head;
 	frequency *freq_hopper = freq_head;
 
-	printf("trans %d\n", trans->id);
+//	printf("trans %d\n", trans->id);
 	/* find frequencies used by neighbors */
-	while((neihbor = pop_neighbor(&trans))) {
+	while(neighbor) {
 		/* if neighbor doesn't have frequency jump to next */
 		/*
 		if(neigh_hopper->data->frequency == -1) {
@@ -80,14 +70,14 @@ int find_available_frequency(transmitter *trans, frequency *freq_head) {
 		freq_hopper = freq_head;
 		neigh_hopper = neigh_hopper->next;
 		*/
-		if(neihbor->frequency == -1) {
+		if(neighbor->data->frequency == -1) {
 			continue;
 		}
 
-		printf("neigbor %d\n", neihbor->id);
+//		printf("neigbor %d\n", neihbor->id);
 		while(freq_hopper) {
-			if(neihbor->frequency == freq_hopper->value) {
-				printf("freq %d\n", freq_hopper->value);
+			if(neighbor->data->frequency == freq_hopper->value) {
+//				printf("freq %d\n", freq_hopper->value);
 				freq_hopper->used = 1;
 				break;
 			}
@@ -96,6 +86,7 @@ int find_available_frequency(transmitter *trans, frequency *freq_head) {
 		}
 
 		freq_hopper = freq_head;
+		neighbor = neighbor->next;
 	}
 
 	/* goes through frequency llist and returns frequency of the first unused frequency */
