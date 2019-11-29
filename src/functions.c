@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "functions.h"
 #include "structures.h"
 #include "constants.h"
@@ -42,42 +43,32 @@ void reset_used_freq(frequency *freq_head) {
 	}
 }
 
+void push_neighbors(transmitter *trans, stack_node **root) {
+	stack_node *hopper = trans->neighbor_head;
+
+	while(hopper) {
+		if(hopper->data->frequency == -1 && !hopper->data->is_in_stack) {
+			//printf("Pushing %d\n", hopper->data->id);
+			push(root, hopper->data);
+		}
+		hopper = hopper->next;
+	}
+}
+
 int find_available_frequency(transmitter *trans, frequency *freq_head) {
-	/*stack_node  *neigh_hopper = trans->neighbor_top;
-	 */
 	stack_node *neighbor = trans->neighbor_head;
 	frequency *freq_hopper = freq_head;
 
-//	printf("trans %d\n", trans->id);
 	/* find frequencies used by neighbors */
 	while(neighbor) {
 		/* if neighbor doesn't have frequency jump to next */
-		/*
-		if(neigh_hopper->data->frequency == -1) {
-			neigh_hopper = neigh_hopper->next;
-			continue;
-		}
-
-		while(freq_hopper) {
-			if(neigh_hopper->data->frequency == freq_hopper->value) {
-				freq_hopper->used = 1;
-				break;
-			}
-
-			freq_hopper = freq_hopper->next;
-		}
-
-		freq_hopper = freq_head;
-		neigh_hopper = neigh_hopper->next;
-		*/
 		if(neighbor->data->frequency == -1) {
+			neighbor = neighbor->next;
 			continue;
 		}
 
-//		printf("neigbor %d\n", neihbor->id);
 		while(freq_hopper) {
 			if(neighbor->data->frequency == freq_hopper->value) {
-//				printf("freq %d\n", freq_hopper->value);
 				freq_hopper->used = 1;
 				break;
 			}
@@ -99,18 +90,45 @@ int find_available_frequency(transmitter *trans, frequency *freq_head) {
 		freq_hopper = freq_hopper->next;
 	}
 
-	print_neighbors(trans);
-	printf("No suitable frequency found\n");
-
 	return -1;
 }
 
 int assign_frequencies(transmitter *trans_head, frequency *freq_head) {
-	transmitter *hopper = trans_head;
-	int freq;
+	transmitter *hopper = trans_head, *popped = NULL;
+	stack_node *root = NULL;
+	int freq = 0;
 
 	while(hopper) {
-		/* skip to next transmitter because current already has frequency assigned */
+		if(is_empty(root)) { 
+			if(hopper->frequency != -1) {
+				//printf("EHEM %d\n", hopper->id);
+				//push_neighbors(hopper, &root);
+				hopper = hopper->next;
+				continue;
+			}
+			//printf("Mehing %d\n", hopper->id);
+			push(&root, hopper);
+		}
+
+		popped = pop(&root);
+
+		//printf("Popped %d\n", popped->id);
+		push_neighbors(popped, &root);
+		//print_neighbors(popped);
+		//printf("---\n");
+
+		freq = find_available_frequency(popped, freq_head);
+
+		if(freq == -1) {
+			printf(ERROR_3);
+			return 0;
+		}
+
+		popped->frequency = freq;
+	}
+	/*
+	while(hopper) {
+		 skip to next transmitter because current already has frequency assigned 
 		if(hopper->frequency != -1) {
 			hopper = hopper->next;
 			continue;
@@ -120,13 +138,40 @@ int assign_frequencies(transmitter *trans_head, frequency *freq_head) {
 
 		if(freq == -1) {
 			printf(ERROR_3);
-			/* DO MEMORY FREEING */
+			 DO MEMORY FREEING 
 			return 0;
 		}
 
 		hopper->frequency = freq;
 		hopper = hopper->next;
 	}
+	*/
+
+	return 1;
+}
+
+int free_transmitters(transmitter *head) {
+	transmitter *remover = head;
+
+	while(head->next) {
+		remover = head;
+		head = head->next;
+		free(remover);
+	}
+	free(head);
+
+	return 1;
+}
+
+int free_frequencies(frequency *head) {
+	frequency *remover = head;
+
+	while(head->next) {
+		remover = head;
+		head = head->next;
+		free(remover);
+	}
+	free(head);
 
 	return 1;
 }
