@@ -126,26 +126,6 @@ int assign_frequencies(transmitter *trans_head, frequency *freq_head) {
 
 		popped->frequency = freq;
 	}
-	/*
-	while(hopper) {
-		 skip to next transmitter because current already has frequency assigned 
-		if(hopper->frequency != -1) {
-			hopper = hopper->next;
-			continue;
-		}
-
-		freq = find_available_frequency(hopper, freq_head);
-
-		if(freq == -1) {
-			printf(ERROR_3);
-			 DO MEMORY FREEING 
-			return 0;
-		}
-
-		hopper->frequency = freq;
-		hopper = hopper->next;
-	}
-	*/
 
 	return 1;
 }
