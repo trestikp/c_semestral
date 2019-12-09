@@ -5,50 +5,55 @@
 #include "structures.h"
 #include "constants.h"
 
-int main(int argc, char *argv[]) {	
-	transmitter *popper;
+#define DESIRED_ARGUMENT_COUNT 2
 
-	if (argc < 2) {
+transmitter *transmitter_head = NULL;
+frequency *frequency_head = NULL;
+int radius = -1;
+
+void print_help() {
+	printf("Invalid parameter count!\n");
+	printf("Use: freq <filename>\n");
+	printf("Where <filename> is the file with\n");
+	printf("transmitter data\n");
+	printf("i.e.: ./freq data/vysilace-25.txt\n");
+}
+
+void setup(int argc, char* argv[]) {
+	if (argc < DESIRED_ARGUMENT_COUNT) {
 		printf(ERROR_1);
-		return 1;
+		print_help();
+		exit(1);
 	}
 
-	if (argc > 2) {
+	if (argc > DESIRED_ARGUMENT_COUNT) {
 		printf(ERROR_5);
-		return 1;
+		print_help();
+		exit(1);
 	}
 
-	file *strucs = load_file(argv[1]);
+	if (!load_file(argv[1], &transmitter_head, &frequency_head, &radius))
+		exit(1);
+}
 
-	/*
-	print_freq(strucs->frequency_head);
-	print_tran(strucs->transmitter_head);
-	printf("Radius: %d\n", strucs->radius);
-	printf("Starting finding neihgbors.\n");
-	find_neighbors(strucs->transmitter_head, strucs->radius);
-	printf("Finished finding neighbors.\n");
-	*/
+void run() {
+	if(!find_neighbors(transmitter_head, radius))
+		return;
+	if(!assign_frequencies(transmitter_head, frequency_head))
+		return;
+	print_result(transmitter_head);
+}
 
-	find_neighbors(strucs->transmitter_head, strucs->radius);
-	assign_frequencies(strucs->transmitter_head, strucs->frequency_head);
-	print_result(strucs->transmitter_head);
+void shutdown() {
+	free_frequencies(frequency_head);
+	free_transmitters(transmitter_head);
+}
 
-	free_frequencies(strucs->frequency_head);
-	free_transmitters(strucs->transmitter_head);
-	free(strucs);
 
-	/*
-	popper = strucs->transmitter_head;
-	while(popper) {
-		printf("Transmitter %d\n", popper->id);
-		print_neighbors(popper);
-		popper = popper->next;
-	}
-	*/
-
-	/*
-	print_tran(strucs->transmitter_head);
-	*/
+int main(int argc, char *argv[]) {		
+	setup(argc, argv);
+	run();
+	shutdown();
 
 	return 0;
 }

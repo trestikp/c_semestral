@@ -10,15 +10,24 @@
 #define RADIUS_STRING "Transmission radius:"
 #define TRANSMITTER_STRING "Transmitters:"
 
-file *load_file(char *file_name) {
+/*
+ *	file *load_file(char *file_name) {
+ *	
+ *	Loads file
+ *	
+ *	Returns *file on success
+ *		NULL on error.
+ */
+int load_file(char *file_name, transmitter **transmitter_head,
+	      frequency **frequency_head, int *rad) {
 	char line[MAX_LINE_LENGTH];
 	int id = -1, freq = -1, radius = -1;
 	/* possibly double needed */
-	float x, y;
-	FILE* f;
-	frequency /**head = NULL, */*last = NULL;
-	transmitter /**hlava = NULL, */*posledni = NULL;
-	file *out = (file*) malloc(sizeof(file));
+	float x = 0, y = 0;
+	FILE *f = NULL;
+	frequency *f_last = NULL;
+	transmitter *t_last = NULL;
+	/* failed to open file */
 
 	if (!(f = fopen(file_name, "r"))) {
 		printf(ERROR_4);
@@ -27,25 +36,28 @@ file *load_file(char *file_name) {
 
 	while (fgets(line, MAX_LINE_LENGTH, f)) {
 
-		/* bude fungovat pouze pokud jsou oddily serazene freq -> radius -> transmitter
-		 * = mozna lepsi reseni?
+		/* either sizeof - 1 or add \r\n / \n to the 
+		 * *_STRING constants
+		 * for \r\n / \n platform check is needed
+		 * -> sizeof - 1 better
 		 */
-
-		/* either sizeof - 1 or add \r\n / \n to the *_STRING constants
-		 * for \r\n / \n platform check is needed -> sizeof - 1 better
-		 */
-		if (!strncmp(FREQUENCY_STRING, line, sizeof(FREQUENCY_STRING) - 1)) {
+		if (!strncmp(FREQUENCY_STRING, line,
+		    sizeof(FREQUENCY_STRING) - 1)) {
 			while (fgets(line, MAX_LINE_LENGTH, f)) {
 				if (sscanf(line, "%d %d", &id, &freq) == 2) {
-					if(!out->frequency_head) {
-						out->frequency_head = last;
+					if(!(*frequency_head)) {
+						*frequency_head = f_last;
 					}
-					last = add_frequency(last, id, freq);
-					/*
-					printf("Loading freq: %d %d\n", id, freq);
-					*/
+					f_last = add_frequency(f_last,
+							       id, freq);
+					if (!f_last)
+						return 0;
+												
 				} else {
-					/* test for */
+					/* if sscanf doesn't load line
+					 * correctly breakes inner while
+					 * and moves to next block
+					 */
 					break;
 				}
 			}
@@ -54,39 +66,34 @@ file *load_file(char *file_name) {
 		if (!strncmp(RADIUS_STRING, line, sizeof(RADIUS_STRING) - 1)) {
 			while (fgets(line, MAX_LINE_LENGTH, f)) {
 				if (sscanf(line, "%d", &radius) == 1) {
-					/*
-					printf("Loading radius: %d\n", radius);
-					*/
-					out->radius = radius;
+					*rad = radius;
 				} else {
-					/* test for freq/ transmitter */
+					/* same as above */
 					break;
 				}
 			}
 		}
 
-		if (!strncmp(TRANSMITTER_STRING, line, sizeof(TRANSMITTER_STRING) - 1)) {
+		if (!strncmp(TRANSMITTER_STRING, line,
+	 	    sizeof(TRANSMITTER_STRING) - 1)) {
 			while (fgets(line, MAX_LINE_LENGTH, f)) {
-				if (sscanf(line, "%d %f %f", &id, &x, &y) == 3) {
-					if(!out->transmitter_head) {
-						out->transmitter_head = posledni;
+				if (sscanf(line, "%d %f %f", &id, &x, &y) == 3)
+				{
+					if (!(*transmitter_head)) {
+						*transmitter_head = t_last;
 					}
-					posledni = add_transmitter(posledni, id, x, y);
-					/*
-					printf("Loading transmitter: %d %f %f\n", id, x, y);
-					*/
+					t_last = add_transmitter(t_last,
+								 id, x, y);	
+					if (!t_last)
+						return 0;
 				} else {
-					/* test for other types */
 					break;
 				}
 			}
 		}
 	}
 
-	/*
-	out->frequency_head = head;
-	out->transmitter_head = hlava;
-	*/
+	fclose(f);
 
-	return out;
+	return 1;
 }

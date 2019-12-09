@@ -1,5 +1,19 @@
+/*
+ * Transmitter Frequency Collision solver
+ *
+ * Header for structers - structers.h
+ *
+ * For function descriptions see structures.c
+ */
+
 #ifndef _STRUCTURES_H
 #define _STRUCTURES_H
+
+/******************************************************************************
+ *									      *
+ * Structures and Datatypes						      *
+ * 									      *
+ *****************************************************************************/
 
 typedef struct the_frequency {
 	int id;
@@ -23,21 +37,18 @@ typedef struct the_stack_node {
 	struct the_stack_node *next;	
 } stack_node;
 
-typedef struct the_file {
-	frequency *frequency_head;
-	transmitter *transmitter_head;
-	int radius;
-} file;
+/******************************************************************************
+ *									      *
+ * Function Prototypes							      *
+ * 									      *
+ *****************************************************************************/
+
 
 frequency *add_frequency(frequency *last, int id, int value);
 transmitter *add_transmitter(transmitter *last, int id, float x, float y);
 int add_neighbor(transmitter *trans, transmitter *neighbor);
 int is_empty(stack_node *root);
-void push(stack_node **root, transmitter *trans);
+int push(stack_node **root, transmitter *trans);
 transmitter *pop(stack_node **root);
-
-void print_freq(frequency *head);
-void print_tran(transmitter *head);
-void print_neighbors(transmitter *trans);
 
 #endif
