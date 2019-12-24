@@ -1,0 +1,84 @@
+\documentclass[12pt]{article}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[IL2]{fontenc}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{cprotect}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+\newcommand{\htmltag}[1]{%
+	\scalebox{.6}[1]{$<$}{\ttfamily#1}\scalebox{.6}[1]{$>$}%
+}
+
+\begin{document}
+\pagenumbering{gobble} %bez cisel
+\begin{titlepage}
+\includegraphics[scale=0.2, trim=5cm 0 0 30cm]{logo.jpg}
+\begin{center}
+\vspace{5cm}
+{\Huge
+\textbf{Semestrální práce KIV/PC}\\
+\vspace{1cm}
+}
+{\Large
+\textbf{Řešení kolizí frekvencí sítě vysílačů}
+}
+\end{center}
+\vspace{\fill}
+
+\begin{minipage}[t]{5cm}
+\flushleft
+Pavel Třeštík\\
+A17B0380P
+\end{minipage}
+\hfill
+\begin{minipage}[t]{7cm}
+\flushright
+\today
+\end{minipage}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+%
+%Zadání
+%
+\section{Zadání}
+
+%
+%Analýza problému
+%
+
+\pagebreak
+\section{Analýza problému}
+\subsection{Datové struktury pro uložení frekvencí a vysílačů}
+\subsection{Zásobník}
+\subsection{Graf kolizí}
+%
+%Implementace
+%
+
+\section{Implementace}
+\subsection{Použité řešení}
+\subsection{Algoritmus programu}
+\pagebreak
+\subsection{Popis datových struktur}
+\subsection{Moduly programu}
+%
+% Uživatelská dokumentace
+%
+
+\section{Uživatelská dokumentace}
+\subsection{Překlad zdrojových souborů aplikace}
+\subsection{Spuštění aplikace}
+\newpage
+\subsection{Popis chybových stavů}
+%
+%Závěr
+%
+\pagebreak
+\section{Závěr}
+\end{document}
