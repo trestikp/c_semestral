@@ -16,9 +16,9 @@
 \begin{document}
 \pagenumbering{gobble} %bez cisel
 \begin{titlepage}
-\includegraphics[scale=0.2, trim=5cm 0 0 30cm]{img/logo.jpg}
+\centerline{\includegraphics[width=10cm]{img/logo.jpg}}
 \begin{center}
-\vspace{5cm}
+\vspace{30px}
 {\Huge
 \textbf{Semestrální práce KIV/PC}\\
 \vspace{1cm}
@@ -44,11 +44,11 @@ A17B0380P
 
 \tableofcontents
 \newpage
-\pagenumbering{arabic}
-%
+\pagenumbering{arabic} %
 % Zadání
 %
 \section{Zadání}
+%
 Naprogramujte v ANSI C přenositelnou konzolovou aplikaci, která jako vstup
 načte z parametru příkazové řádky název textového souboru obsahující
 informace o parametrech a pozicích vysílačů na mapě a na jeho základě
@@ -76,7 +76,9 @@ studies/predmety/pc/doc/work/sw2019-02.pdf}\\
 % Analýza problému
 %
 \pagebreak
+%
 \section{Analýza problému}
+%
 Tato úloha načte informace ze souboru. Poté s těmito informacemi provede svou 
 funkčnost a vypíše výsledek na konzoli. Aby toto bylo možné je nutné zvolit
 vhodný způsob uložení načtených informací do paměti. Načítají se 3 infromace: 
@@ -88,7 +90,9 @@ Po té program potřebuje zjistit sousedící vysílače a následně jim přiř
 dostupné frekvence. K tomu je třeba uchovat sousedy každého vysílače.
 Dále je v zadání doporučeno použít datovou strukturu zásobník, proto zde bude
 také popsána.
+%
 \subsection{Způsoby uložení vysílačů a frekvencí}
+%
 Možné způsoby jsou pole, dynamické pole (rozšiřující se podle potřeby), linked 
 list či nějáká jeho obdoba.\\
 
@@ -109,7 +113,9 @@ pravděpodobně je paměťově efektivnější než dynamické pole. Kromě dat 
 uchovává akorát pointer na další prvek. Nevýhodou je přídávání, které v 
 klasickém linked listu musí dojít na konec listu a vložit nový prvek. Tato 
 nevýhoda může být ale snadně odstraněna.
+%
 \subsection{Uchování sousedů}
+%
 Sousedi mohou být zaneseni do matice sousednosti či uchováváni jako některá z 
 datových struktur použitých k uložení vysílačů a frekvencí. Obě řešení 
 zaberou paměť navíc, ovšem matice bude zabírat více paměti, protože uchovává 
@@ -120,7 +126,9 @@ zabírat žádnou paměť. Výpočetně se jedná o zhruba stejně složité úl
 je nutné zjistit všechny sousedy každého bodu tím, že je nutné porovnat pozice
 každého vysílače o proti všem ostatním a tudíž žádné řešení není významně lepší
 po výpočetní stránce.
+%
 \subsection{Zásobník}
+%
 Dá se považovat za druh linked listu. Prvek je vkládán na první pozici listu a 
 poslední přidaný (první v listu) je vyjímán. Toto zajišťuje, že prvky jsou 
 vyjímány v opačném pořadí v jakém byly vloženy (první vložen bude vyjmut 
@@ -129,9 +137,13 @@ poslední).
 % Implementace
 %
 \section{Implementace}
+%
 \subsection{Struktura projektu}
+%
 %TODO: obrazek\\ popis?
+%
 \subsection{Použité struktury}
+%
 Pro uchování frekvencí a vysílačů je použita upravená struktura linked list.
 Jak je zmíněno v analýze úlohy, tato struktura poskytuje jednoduchou
 rozšiřitelnost za cenu paměti uchovávájící pointer na další prvek. Struktura
@@ -145,7 +157,9 @@ list.\\
 
 V programu je také použita struktura stack. Tato struktura je již popsána v 
 analýze úlohy a její využítí bude zmíněno v následující sekci.
+%
 \subsection{Použité řešení}
+%
 Pro nalezení sousedů jednotlivých vysílačů se porovnává pozice procházeného
 vysílače proti pozicím všech vysílačů, které se nachází v linked listu od 
 pořadí procházeného vysílače dál. V případě, že vysílače jsou sousedé, přidají
@@ -160,9 +174,13 @@ nemá dosud přiřazenou frekvenci, je přidán do stacku. Pokud již frekvenci 
 algoritmus pokračuje dalším vysílačem. Pokud stack není prázdný, přiřadí se 
 frekvence vyjmutému vysílači a do stacku se vloží všichni jeho sousedi. Dokud
 stack není prázdný, nepřidává se žádný vysílač z linked listu.
+%
 \subsection{Popis datových struktur (zdrojový kód)}
+%
 Níže popsané struktury jsou všechny obsaženy v souboru \textbf{structures.h}
+%
 \subsubsection{Stuktura frekvence}
+%
 \noindent
 \texttt{typedef struct the\_frequency \{\\
 \begin{addmargin}[2cm]{0cm}
@@ -178,7 +196,9 @@ Struktura obsahuje celočíselné
 "\textbf{used}"\ a 
 pointer na další frekvenci v linked listu. Program nevyužívá žádnou obalovou
 strukturu pro linked list frekvencí ani vysílačů.
+%
 \subsubsection{Struktura transmitteru}
+%
 \noindent
 \texttt{
 typedef struct the\_transmitter \{\\
@@ -204,7 +224,9 @@ strukturu pro sousedy, které by jinak nebylo možné uchovávat. Struktura
 prvku zásobníku přesně splňuje požadavky obalovací sturktury sousedů a proto
 je použita místo vytváření jiné identické struktury
 (pouze s vhodnějším pojmenováním).
+%
 \subsubsection{Struktura listu zásobníku}
+%
 \noindent
 \texttt{
 typedef struct the\_stack\_node \{\\
@@ -218,10 +240,14 @@ typedef struct the\_stack\_node \{\\
 Jednoduchá obalovací struktura pro vysílače. Obsahuje pouze pointer na vysílač
 a pointer na další prvek této struktury. Je použita ve stacku a v linked listu
 sousedů.
+%
 \subsection{Moduly programu}
+%
 \subsubsection{main.c}
+%
 \paragraph{Globální proměnné}
 main.c obsahuje 3 globální proměnné. Těmi jsou:
+%
 \begin{itemize}
 	\item \texttt{transmitter *transmitter\_head} - pointer na začátek linked
 		listu vysílačů
@@ -229,7 +255,9 @@ main.c obsahuje 3 globální proměnné. Těmi jsou:
 		listu frekvencí
 	\item \texttt{int radius} - rádius vysílačů
 \end{itemize}
+%
 \paragraph{Funkce}
+%
 \begin{itemize}
 	\item \texttt{void print\_help()} - vypíše na konzoli jednoduchý
 		návod k použití programu.
@@ -247,6 +275,7 @@ main.c obsahuje 3 globální proměnné. Těmi jsou:
 \end{itemize}
 %
 \subsubsection{structures.c}
+%
 \begin{itemize}
 	\item \texttt{frequency *add\_frequency(frequency *last, int id,
 		int value)} - přidává frekvenci na konec linked listu. Alokuje
@@ -288,6 +317,7 @@ main.c obsahuje 3 globální proměnné. Těmi jsou:
 \end{itemize}
 %
 \subsubsection{functions.c}
+%
 \begin{itemize}
 	\item \texttt{int find\_neighbors(transmitter *head, int radius)} - 
 		hledá sousedy vysílače. Prochází vysílače dvoumi rozdílnými
@@ -331,7 +361,9 @@ main.c obsahuje 3 globální proměnné. Těmi jsou:
 	\item \texttt{void print\_result(transmitter *head)} - vypíše vysílače
 		a jejich frekvence na konzoli.
 \end{itemize}
+%
 \subsubsection{file\_loader.c}
+%
 \begin{itemize}
 	\item \texttt{int load\_file(char *file\_name,
 		transmitter **transmitter\_head,
@@ -346,13 +378,74 @@ main.c obsahuje 3 globální proměnné. Těmi jsou:
 %
 
 \section{Uživatelská dokumentace}
+%
 \subsection{Překlad zdrojových souborů aplikace}
+Se zdrojovými soubory jsou poskytnuté makefile soubory. Toto značně ulehčuje
+překlad zdrojových soubory. V prostředí linux stačí jednoduše spusit příkaz
+\textbf{make}, soubory se přeloží a vytvoří se spustitelný soubor \textbf{freq}.
+V prostředí Windows je ale překlad složitější. Windows nemá překladač ani 
+příkaz make sám o sobě, proto je nutné použít pomocný prostředek. Lze využít 
+na příklad: Cygwin, MinGW nebo Visual Studio. Každý prostředek ale může 
+fungovat jinak. Po použití pomocného prostředku, pomocí kterého budete moci 
+použít překladač gcc a make můžete přeložit soubory. Při použití na příklad 
+Cygwin je možné použit pouze \textbf{make} jako v linuxu. Při použití na příklad 
+Visual Studia se použije příkaz \textbf{nmake -f Makefile.win}. Použití
+\textbf{Makefile.win} vytvoří spustitelný soubor \textbf{freq.exe}.
+%
 \subsection{Spuštění aplikace}
-\newpage
+Program se spouští z příkazové řádky. Přeložení souborů pomocí make vytvoří 
+spustitelný soubor \textbf{freq} nebo \textbf{freq.exe} (podle použitého
+makefile/ systému překladu). Program vyžaduje jeden argument, který by měl být
+soubor obsahující potřebná data. Program je tedy možno spustit následujícím 
+způsobem viz Obrázek \ref{img:success}.
+%
+\begin{figure}[H]
+        \centering
+        \includegraphics{img/success.png}
+        \caption{Příklad správného spuštění aplikace s výsledkem}
+        \label{img:success}
+\end{figure}
+%
+Pokud není zadán argument, nebo program narazí na chybu a je neúspěšně ukončen
+vypíše chybové hlášení. Příklad spuštění bez parametru viz Obrázek 
+\ref{img:fail}
+	%
+\begin{figure}[H]
+        \centering
+        \includegraphics{img/failure.png}
+        \caption{Příklad spuštění bez parametrů}
+        \label{img:fail}
+\end{figure}
+%
 \subsection{Popis chybových stavů}
+Tato sekce obsahuje popis chybových stavů, které program ošetřuje a informuje
+o nich.
 %
-%Závěr
+\begin{table}[H]
+        \begin{tabular}{|l|p{6.35cm}|}
+                \hline
+                \bf Chybové hlášení & \bf Popis chybového stavu \\
+                \hline
+                ERR\#1: Missing argument! & Programu nebyl předán očekávaný
+		argument.\\
+		\hline
+                ERR\#2: Out of memory! & Programu se nepodařilo alokovat
+		paměť.\\
+                \hline
+                ERR\#3: Non-existent solution! & Nelze nalézt řešení použitým
+		alogritmem.\\
+                \hline
+                ERR\#4: Failed to open file! & Nepodařilo se otevřít soubor.\\
+                \hline
+                ERR\#5: Too many arguments! & Příliš mnoho argumentů, očekáván
+		jeden.\\
+                \hline
+        \end{tabular}
+        \caption{Tabulka chybových stavů}
+        \label{tab:err}
+\end{table}
 %
-\pagebreak
+% Závěr
+%
 \section{Závěr}
 \end{document}

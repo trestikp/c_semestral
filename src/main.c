@@ -13,8 +13,7 @@ int radius = -1;
 
 void print_help() {
 	printf("Use: freq <filename>\n");
-	printf("Where <filename> is the file with\n");
-	printf("transmitter data\n");
+	printf("Where <filename> is the data file.\n");
 	printf("i.e.: ./freq data/vysilace-25.txt\n");
 }
 
