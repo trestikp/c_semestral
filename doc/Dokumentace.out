@@ -1,0 +1,23 @@
+\BOOKMARK [1][-]{section.1}{Zad\341n\355}{}% 1
+\BOOKMARK [1][-]{section.2}{Anal\375za probl\351mu}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Zpusoby ulo\236en\355 vys\355lacu a frekvenc\355}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Uchov\341n\355 sousedu}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Z\341sobn\355k}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Implementace}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Struktura projektu}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Pou\236it\351 struktury}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{Pou\236it\351 re\235en\355}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.4}{Popis datov\375ch struktur \(zdrojov\375 k\363d\)}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Stuktura frekvence}{subsection.3.4}% 11
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Struktura transmitteru}{subsection.3.4}% 12
+\BOOKMARK [3][-]{subsubsection.3.4.3}{Struktura listu z\341sobn\355ku}{subsection.3.4}% 13
+\BOOKMARK [2][-]{subsection.3.5}{Moduly programu}{section.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.5.1}{main.c}{subsection.3.5}% 15
+\BOOKMARK [3][-]{subsubsection.3.5.2}{structures.c}{subsection.3.5}% 16
+\BOOKMARK [3][-]{subsubsection.3.5.3}{functions.c}{subsection.3.5}% 17
+\BOOKMARK [3][-]{subsubsection.3.5.4}{file\137loader.c}{subsection.3.5}% 18
+\BOOKMARK [1][-]{section.4}{U\236ivatelsk\341 dokumentace}{}% 19
+\BOOKMARK [2][-]{subsection.4.1}{Preklad zdrojov\375ch souboru aplikace}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.2}{Spu\235ten\355 aplikace}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.3}{Popis chybov\375ch stavu}{section.4}% 22
+\BOOKMARK [1][-]{section.5}{Z\341ver}{}% 23

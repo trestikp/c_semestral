@@ -1,0 +1,26 @@
+\babel@toc {czech}{}
+\contentsline {section}{\numberline {1}Zadání}{1}{section.1}% 
+\contentsline {section}{\numberline {2}Analýza problému}{2}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Způsoby uložení vysílačů a frekvencí}{2}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Uchování sousedů}{3}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Zásobník}{3}{subsection.2.3}% 
+\contentsline {section}{\numberline {3}Implementace}{3}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Struktura projektu}{3}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Použité struktury}{3}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Použité řešení}{4}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Popis datových struktur (zdrojový kód)}{4}{subsection.3.4}% 
+\contentsline {subsubsection}{\numberline {3.4.1}Stuktura frekvence}{4}{subsubsection.3.4.1}% 
+\contentsline {subsubsection}{\numberline {3.4.2}Struktura transmitteru}{5}{subsubsection.3.4.2}% 
+\contentsline {subsubsection}{\numberline {3.4.3}Struktura listu zásobníku}{5}{subsubsection.3.4.3}% 
+\contentsline {subsection}{\numberline {3.5}Moduly programu}{6}{subsection.3.5}% 
+\contentsline {subsubsection}{\numberline {3.5.1}main.c}{6}{subsubsection.3.5.1}% 
+\contentsline {paragraph}{Globální proměnné}{6}{section*.2}% 
+\contentsline {paragraph}{Funkce}{6}{section*.3}% 
+\contentsline {subsubsection}{\numberline {3.5.2}structures.c}{6}{subsubsection.3.5.2}% 
+\contentsline {subsubsection}{\numberline {3.5.3}functions.c}{7}{subsubsection.3.5.3}% 
+\contentsline {subsubsection}{\numberline {3.5.4}file\_loader.c}{9}{subsubsection.3.5.4}% 
+\contentsline {section}{\numberline {4}Uživatelská dokumentace}{9}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Překlad zdrojových souborů aplikace}{9}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.2}Spuštění aplikace}{9}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {4.3}Popis chybových stavů}{10}{subsection.4.3}% 
+\contentsline {section}{\numberline {5}Závěr}{11}{section.5}% 
