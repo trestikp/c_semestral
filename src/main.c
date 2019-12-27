@@ -12,7 +12,6 @@ frequency *frequency_head = NULL;
 int radius = -1;
 
 void print_help() {
-	printf("Invalid parameter count!\n");
 	printf("Use: freq <filename>\n");
 	printf("Where <filename> is the file with\n");
 	printf("transmitter data\n");
