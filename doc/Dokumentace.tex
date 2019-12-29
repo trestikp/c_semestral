@@ -463,13 +463,34 @@ o nich.
 \section{Závěr}
 %
 Výsledný program je funkční a měl by splňovat zadání. Vždy najde řešení pro
-poskytnutá testovací data, ačkoliv se výsledky neshodují s poskytnutými
+poskytnutá testovací data, ačkoliv výsledky nejsou totožné s poskytnutými
 výsledky.\\
 
-"výkon" změnit!! programu byl otestován. Byl testován 20 krát na notebooku s procesorem
-Intel i7-6700HQ @ 2.60GHz, 16GB RAM. Z toho 10 krát na systému linux (distribuce:
-Arch Linux, verze jádra: 5.4.6-arch3-1) a 10 krát na systému Windows (). Dále byl
-10 krát testován na Raspberry Pi 4 model B se 4GB RAM a procesorem 
-BCM2835 @ 1.50Ghz (OS: Raspbian GNU/Linux 10, verze jádra: 4.19.75-v7l+).\\
+Program byl testován za růných podmínek na testovacím souboru s 1000 vysílači.
+Byl testován 20 krát na notebooku s 
+procesorem Intel i7-6700HQ @ 2.60GHz, 16GB RAM. Z toho 10 krát na systému linux
+(distribuce: Arch Linux, verze jádra: 5.4.6-arch3-1) a 10 krát na systému
+Windows (). Dále byl 10 krát testován na Raspberry Pi 4 model B se 4GB RAM a 
+procesorem BCM2835 @ 1.50Ghz (OS: Raspbian GNU/Linux 10,
+verze jádra: 4.19.75-v7l+).\\
 
+Měření bylo provedeno užitím přikazu \textbf{time} v linuxu a příkazem 
+\textbf{Measure-command} v PowerShell ve Windows. Výsledky jsou v Tabulce
+\ref{tab:time_tests}.
+\begin{table}[H]
+        \begin{tabular}{|l|c|c|c|}
+                \hline
+		\textbf{Setup} & \textbf{Průměrně [ms]} &
+		\textbf{Nejhorší [ms]} & \textbf{Nejlepší [ms]}\\
+                \hline
+                \bf i7-6700HQ Linux & 28.6 & 41 & 16\\
+		\hline
+                \bf i7-6700HQ Windows & 229.5  & 236 & 218 \\
+		\hline
+                \bf Raspberry Pi & 112.4 & 125 & 92\\
+		\hline
+        \end{tabular}
+        \caption{Tabulka chybových stavů}
+        \label{tab:time_tests}
+\end{table}
 \end{document}
