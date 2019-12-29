@@ -45,14 +45,14 @@ A17B0380P
 \tableofcontents
 \newpage
 \pagenumbering{arabic} %
+%
 % Zadání
 %
 \section{Zadání}
-%
 Naprogramujte v ANSI C přenositelnou konzolovou aplikaci, která jako vstup
 načte z parametru příkazové řádky název textového souboru obsahující
 informace o parametrech a pozicích vysílačů na mapě a na jeho základě
-přidělí každému vysílači frekvenci tak, abz jeho signál nerušil
+přidělí každému vysílači frekvenci tak, aby jeho signál nerušil
 vysílání vysílačů v jeho bezprostředním okolí.\\
 
 Program se bude spouštět příkazem \texttt{freq.exe <filename>}. Symbol
@@ -81,12 +81,12 @@ studies/predmety/pc/doc/work/sw2019-02.pdf}\\
 %
 Tato úloha načte informace ze souboru. Poté s těmito informacemi provede svou 
 funkčnost a vypíše výsledek na konzoli. Aby toto bylo možné je nutné zvolit
-vhodný způsob uložení načtených informací do paměti. Načítají se 3 infromace: 
+vhodný způsob uložení načtených informací do paměti. Načítají se 3 informace: 
 frekvence, vysílače a rádius. Rádius je pouze jedno celé číslo, takže není 
 třeba se jím zabývat. Výsílače a frekvence se ale skládají z více informací 
 a neznámého počtu, proto je třeba vybrat vhodný způsob ukládání struktur.\\
 
-Po té program potřebuje zjistit sousedící vysílače a následně jim přiřadit 
+Poté program potřebuje zjistit sousedící vysílače a následně jim přiřadit 
 dostupné frekvence. K tomu je třeba uchovat sousedy každého vysílače.
 Dále je v zadání doporučeno použít datovou strukturu zásobník, proto zde bude
 také popsána.
@@ -94,44 +94,44 @@ také popsána.
 \subsection{Způsoby uložení vysílačů a frekvencí}
 %
 Možné způsoby jsou pole, dynamické pole (rozšiřující se podle potřeby), linked 
-list či nějáká jeho obdoba.\\
+list či některá jeho obdoba.\\
 
 \textbf{Pole} - výhodami jsou: nízká paměťová náročnost a konstantní přístup
 k prvku pomocí indexu, pokud index známe. Nevýhodou je, že předem musí být 
 znám počet prvků, tudíž by bylo nutné nejdřív soubor projít a spočítat počty 
-frekvencí a vysílačů, což by se o velkých souborů mohlo projevit jako časově 
-náročnější a potenciálně nebezpečný (při nečekaném ukončení programu).\\
+frekvencí a vysílačů, což by se u velkých souborů mohlo projevit jako časově 
+náročnější a potenciálně nebezpečné (při nečekaném ukončení programu).\\
 
 \textbf{Dynamické pole} - oproti poli má výhodu, že není předem nutné znát 
 počet načítaných prvků. Ovšem tato výhoda je omezena nevýhodou v podobě 
-paměťové náročnosti. Rozšiřovat pole pouze o malý počet prvků by bylo 
-časově i výpočetně náročné a rozšiřovat ho o například polovinu by mohlo 
+paměťové náročnosti. Rozšiřovat pole pouze o malý počet prvků, by bylo 
+časově i výpočetně náročné a rozšiřovat ho o například polovinu, by mohlo 
 způsobit alokování velkého bloku paměti, který se nemusí vůbec využít.\\
 
 \textbf{Linked list} - výhodou je, že není třeba znát počet prvků a 
-pravděpodobně je paměťově efektivnější než dynamické pole. Kromě dat struktur 
+pravděpodobně je paměťově efektivnější než dynamické pole. Kromě dat
 uchovává akorát pointer na další prvek. Nevýhodou je přídávání, které v 
 klasickém linked listu musí dojít na konec listu a vložit nový prvek. Tato 
-nevýhoda může být ale snadně odstraněna.
+nevýhoda může být ale snadno odstraněna.
 %
 \subsection{Uchování sousedů}
 %
 Sousedi mohou být zaneseni do matice sousednosti či uchováváni jako některá z 
 datových struktur použitých k uložení vysílačů a frekvencí. Obě řešení 
 zaberou paměť navíc, ovšem matice bude zabírat více paměti, protože uchovává 
-sousednost každého bodu s každým, proto uchovává spoustu neužitečných dat. 
-Oproti tomu ukládat sousedy do pole, linked listu či jiné zvolené struktury 
-bude pouze uchovávat pointery na sousedy a pokud vysílač nemá sousedy nebude 
+sousednost každého bodu s každým, tudíž uchovává spoustu neužitečných dat. 
+Oproti tomu ukládat sousedy do pole, linked listu či jiné zvolené struktury,
+bude pouze uchovávat pointery na sousedy a pokud vysílač nemá sousedy, nebude 
 zabírat žádnou paměť. Výpočetně se jedná o zhruba stejně složité úlohy, protože
 je nutné zjistit všechny sousedy každého bodu tím, že je nutné porovnat pozice
-každého vysílače o proti všem ostatním a tudíž žádné řešení není významně lepší
+každého vysílače oproti všem ostatním a proto žádné řešení není významně lepší
 po výpočetní stránce.
 %
 \subsection{Zásobník}
 %
 Dá se považovat za druh linked listu. Prvek je vkládán na první pozici listu a 
 poslední přidaný (první v listu) je vyjímán. Toto zajišťuje, že prvky jsou 
-vyjímány v opačném pořadí v jakém byly vloženy (první vložen bude vyjmut 
+vyjímány v opačném pořadí, než v jakém byly vloženy (první vložen bude vyjmut 
 poslední).
 %
 % Implementace
@@ -153,10 +153,11 @@ Na Obrázku \ref{img:structure} je naznačená struktura projektu a vazba mezi s
 %
 Pro uchování frekvencí a vysílačů je použita upravená struktura linked list.
 Jak je zmíněno v analýze úlohy, tato struktura poskytuje jednoduchou
-rozšiřitelnost za cenu paměti uchovávájící pointer na další prvek. Struktura
-je vylepšená tím, že během vytváření listu frekvencí/ vysílačů se uchovává 
+rozšiřitelnost za cenu paměti uchovávájící pointer na další prvek. Přidávání
+do struktury 
+je vylepšeno tím, že během vytváření listu frekvencí/ vysílačů se uchovává 
 pointer na poslední prvek, tudíž není třeba procházet celý list pro přidání
-prvku.\\
+prvku a lze hned přidat na konec listu.\\
 
 Pro sousedy vysílačů je také použita struktura linked list, ovšem zde už není 
 uchováván poslední prvek, tudíž při přidání prvku se musí projít celý linked
@@ -170,18 +171,18 @@ analýze úlohy a její využítí bude zmíněno v následující sekci.
 Pro nalezení sousedů jednotlivých vysílačů se porovnává pozice procházeného
 vysílače proti pozicím všech vysílačů, které se nachází v linked listu od 
 pořadí procházeného vysílače dál. V případě, že vysílače jsou sousedé, přidají
-se navzájem do svých respektivních listů sousedů. Postup je znázorněn na
+se navzájem do svých listů sousedů. Postup je znázorněn na
 Obrázku \ref{img:neighbors}\\ 
 %
 \begin{figure}[H]
         \centering
-	\includegraphics[width=\textwidth, trim={0 15cm 0 0}]{img/neighbor_finding.pdf}
+	\includegraphics[width=\textwidth, trim={0 15cm 0 4cm}]{img/neighbor_finding.pdf}
         \caption{Graf naznačující hledání sousedů}
         \label{img:neighbors}
 \end{figure}
 %
 Po nalezení všech sousedů každého vysílače se začnou přiřazovat frekvence
-jednotlivým vysílačům (obravování grafu). Pro tuto část je použit algoritmus
+jednotlivým vysílačům (obarvování grafu). Pro tuto část je použit algoritmus
 uvedený v zadání. Zjednodušeně: v linked listu se vybere první vysílač. Pokud 
 nemá dosud přiřazenou frekvenci, je přidán do stacku. Pokud již frekvenci má
 algoritmus pokračuje dalším vysílačem. Pokud stack není prázdný, přiřadí se 
@@ -234,7 +235,7 @@ vysílač. Sousedi jsou uchováni v linked listu a využívají strukturu, kter�
 určena pro prvek zásobníku. Důvodem je, že program nemá zvláštní obalovací
 struktury linked listu vysílačů a frekvencí, proto je nutné použít obalovací 
 strukturu pro sousedy, které by jinak nebylo možné uchovávat. Struktura 
-prvku zásobníku přesně splňuje požadavky obalovací sturktury sousedů a proto
+prvku zásobníku přesně splňuje požadavky obalovací struktury sousedů a proto
 je použita místo vytváření jiné identické struktury
 (pouze s vhodnějším pojmenováním).
 %
@@ -306,7 +307,7 @@ main.c obsahuje 3 globální proměnné. Těmi jsou:
 		parametrem.\\
 
 		Vrací pointer na tento nově přidaný vysílač.
-	\item \texttt{int addy\_neighbor(transmitter *trans,
+	\item \texttt{int add\_neighbor(transmitter *trans,
 		transmitter *neighbor)} - přidá souseda na konec linked listu.
 		Alokuje paměť pro strukturu \texttt{stack\_node}, inicializuje
 		ji hodnotami z parametrů a přidá nakonec listu. Musí ale 
@@ -334,11 +335,11 @@ main.c obsahuje 3 globální proměnné. Těmi jsou:
 \begin{itemize}
 	\item \texttt{int find\_neighbors(transmitter *head, int radius)} - 
 		hledá sousedy vysílače. Prochází vysílače dvoumi rozdílnými
-		"iterátory" a počítá vzdálenost mezi nimi. Pokus je vzdálenost
-		mezi dvěmi vysílači menší než dvounásobek rádiusu, přidají se
+		"iterátory" a počítá vzdálenost mezi nimi. Pokud je vzdálenost
+		mezi dvěmi vysílači menší než dvojnásobek rádiusu, přidají se
 		oba dva vysílače navzájem jako sousedi.\\
 
-		Vrací 0 při chybě při dání souseda a 1 při úspěšném nalezení
+		Vrací 0 při chybě přidání souseda a 1 při úspěšném nalezení
 		všech sousedů.
 	\item \texttt{void reset\_used\_freq(frequency *freq\_head)} - pomocná
 		funkce, která nastaví "used" vlastnost frekvence na 0
@@ -392,23 +393,23 @@ main.c obsahuje 3 globální proměnné. Těmi jsou:
 
 \section{Uživatelská dokumentace}
 %
-\subsection{Překlad zdrojových souborů aplikace}
+\subsection{Překlad zdrojových souborů programu}
 Se zdrojovými soubory jsou poskytnuté makefile soubory. Toto značně ulehčuje
-překlad zdrojových soubory. V prostředí linux stačí jednoduše spusit příkaz
+překlad zdrojových souborů. V prostředí linux stačí jednoduše spusit příkaz
 \textbf{make}, soubory se přeloží a vytvoří se spustitelný soubor \textbf{freq}.
 V prostředí Windows je ale překlad složitější. Windows nemá překladač ani 
 příkaz make sám o sobě, proto je nutné použít pomocný prostředek. Lze využít 
-na příklad: Cygwin, MinGW nebo Visual Studio. Každý prostředek ale může 
+například: Cygwin, MinGW nebo Visual Studio. Každý prostředek ale může 
 fungovat jinak. Po použití pomocného prostředku, pomocí kterého budete moci 
-použít překladač gcc a make můžete přeložit soubory. Při použití na příklad 
-Cygwin je možné použit pouze \textbf{make} jako v linuxu. Při použití na příklad 
+použít překladač gcc a make můžete přeložit soubory. Při použití například 
+Cygwin je možné použit pouze \textbf{make} jako v linuxu. Při použití například 
 Visual Studia se použije příkaz \textbf{nmake -f Makefile.win}. Použití
 \textbf{Makefile.win} vytvoří spustitelný soubor \textbf{freq.exe}.
 %
-\subsection{Spuštění aplikace}
+\subsection{Spuštění programu}
 Program se spouští z příkazové řádky. Přeložení souborů pomocí make vytvoří 
 spustitelný soubor \textbf{freq} nebo \textbf{freq.exe} (podle použitého
-makefile/ systému překladu). Program vyžaduje jeden argument, který by měl být
+makefile/ systému překladu). Program vyžaduje jeden argument, kterým by měl být
 soubor obsahující potřebná data. Program je tedy možno spustit následujícím 
 způsobem viz Obrázek \ref{img:success}.
 %
@@ -470,7 +471,8 @@ Program byl testován za růných podmínek na testovacím souboru s 1000 vysíl
 Byl testován 20 krát na notebooku s 
 procesorem Intel i7-6700HQ @ 2.60GHz, 16GB RAM. Z toho 10 krát na systému linux
 (distribuce: Arch Linux, verze jádra: 5.4.6-arch3-1) a 10 krát na systému
-Windows (). Dále byl 10 krát testován na Raspberry Pi 4 model B se 4GB RAM a 
+Windows (Windows 10 Home). Dále byl 10 krát testován na Raspberry Pi 4 model B
+se 4GB RAM a 
 procesorem BCM2835 @ 1.50Ghz (OS: Raspbian GNU/Linux 10,
 verze jádra: 4.19.75-v7l+).\\
 
@@ -493,4 +495,8 @@ Měření bylo provedeno užitím přikazu \textbf{time} v linuxu a příkazem
         \caption{Tabulka chybových stavů}
         \label{tab:time_tests}
 \end{table}
+
+Program by bylo možné vylepšit: vizualizací sítě vysílačů, upravením či zvolením
+jiného způsobu přidělování frekvencí. Druhá z těchto úprav by mohla rozšířit 
+počet úloh, které program zvládne vyřešit, ale za cenu složitosti výpočtů.\\
 \end{document}
