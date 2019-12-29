@@ -8,3 +8,7 @@
 8 - 106ms
 9 - 125ms
 10 - 119ms
+---------
+avg - 112.4ms
+worst - 125ms
+best - 92ms
