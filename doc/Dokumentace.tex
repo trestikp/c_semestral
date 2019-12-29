@@ -140,7 +140,14 @@ poslední).
 %
 \subsection{Struktura projektu}
 %
-%TODO: obrazek\\ popis?
+Na Obrázku \ref{img:structure} je naznačená struktura projektu a vazba mezi soubory.
+%
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth, trim={0 14cm 0 0}]{img/project_diagram.pdf}
+        \caption{Diagram struktury projektu}
+        \label{img:structure}
+\end{figure}
 %
 \subsection{Použité struktury}
 %
@@ -164,9 +171,15 @@ Pro nalezení sousedů jednotlivých vysílačů se porovnává pozice procháze
 vysílače proti pozicím všech vysílačů, které se nachází v linked listu od 
 pořadí procházeného vysílače dál. V případě, že vysílače jsou sousedé, přidají
 se navzájem do svých respektivních listů sousedů. Postup je znázorněn na
-Obrázku\\ 
-%TODO: obrazek\\
-
+Obrázku \ref{img:neighbors}\\ 
+%
+\begin{figure}[H]
+        \centering
+	\includegraphics[width=\textwidth, trim={0 15cm 0 0}]{img/neighbor_finding.pdf}
+        \caption{Graf naznačující hledání sousedů}
+        \label{img:neighbors}
+\end{figure}
+%
 Po nalezení všech sousedů každého vysílače se začnou přiřazovat frekvence
 jednotlivým vysílačům (obravování grafu). Pro tuto část je použit algoritmus
 uvedený v zadání. Zjednodušeně: v linked listu se vybere první vysílač. Pokud 
@@ -448,4 +461,15 @@ o nich.
 % Závěr
 %
 \section{Závěr}
+%
+Výsledný program je funkční a měl by splňovat zadání. Vždy najde řešení pro
+poskytnutá testovací data, ačkoliv se výsledky neshodují s poskytnutými
+výsledky.\\
+
+"výkon" změnit!! programu byl otestován. Byl testován 20 krát na notebooku s procesorem
+Intel i7-6700HQ @ 2.60GHz, 16GB RAM. Z toho 10 krát na systému linux (distribuce:
+Arch Linux, verze jádra: 5.4.6-arch3-1) a 10 krát na systému Windows (). Dále byl
+10 krát testován na Raspberry Pi 4 model B se 4GB RAM a procesorem 
+BCM2835 @ 1.50Ghz (OS: Raspbian GNU/Linux 10, verze jádra: 4.19.75-v7l+).\\
+
 \end{document}
